@@ -1,17 +1,32 @@
-import React from 'react'
+import React from "react";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+
+// BrowserRouter - you can use this beucase of app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../public/index.html"));
+// }); // Send index.html for any other requests
+//which is located in server/index.js
+import Home from "./Home";
+import AllCandies from "./AllCandies";
+import SingleCandy from "./SingleCandy";
 
 const Root = () => {
   return (
-    <div>
-      <nav>
-        Goodie Bag
-      </nav>
-      <main>
-        <h1>Welcome to the Goodie Bag!</h1>
-        <p>What a nice home page for your goodies!</p>
-      </main>
-    </div>
-  )
-}
+    <Router>
+      <div>
+        <nav>
+          Goodie Bag
+          <Link to="/candies">candies</Link>
+          <Link to="/">home</Link>
+        </nav>
 
-export default Root
+        <Switch>
+          <Route path="/candies/:id" component={SingleCandy} />
+          <Route path="/candies" component={AllCandies} />
+          <Route path="/" component={Home} />
+        </Switch>
+      </div>
+    </Router>
+  );
+};
+
+export default Root;
